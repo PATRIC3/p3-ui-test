@@ -2,11 +2,13 @@
 const url = 'https://patricbrc.org'
 
 
+const timeout = 130000 // server has a 2 min timeout
+
 describe('Pathways tab', () => {
 
   beforeAll(async () => {
-    const view = `${url}/view/GenomeList/?in(genome_id,(1834079.3,1882406.3,2171752.3))#view_tab=pathways`
-    await page.goto(view, {waitUntil: 'networkidle0'})
+    const view = `${url}/view/GenomeList/?in(genome_id,(1834079.3,1882406.3,2171752.3))#view_tab=subsystems`
+    await page.goto(view, {waitUntil: 'networkidle0', timeout})
   })
 
   it('should say have the query at the top of the page', async () => {
@@ -21,6 +23,5 @@ describe('Pathways tab', () => {
     )
     return pageText == '1 - 200'
   })
-
 
 })
