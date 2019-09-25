@@ -23,7 +23,7 @@ To run tests and produce a report at the command line:
 npm test
 ```
 
-An HTML report is made available at `./jest_html_reporters.html`.
+An HTML report is made available at `./report.html`.
 
 
 

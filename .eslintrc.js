@@ -36,10 +36,9 @@ module.exports = {
         browser: true,
         context: true,
         beforeAll: true,
+        beforeEach: true,
         describe: true,
         expect: true,
-
-        jestPuppeteer: true,
-
+        jest: true
     }
 };

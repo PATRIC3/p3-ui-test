@@ -2,7 +2,8 @@ module.exports = {
   launch: {
     dumpio: true,
     headless: false, // process.env.HEADLESS !== 'false',
-    // slowMo: 250
+
+    //slowMo: 500
   },
   browserContext: 'default',
 }

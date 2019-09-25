@@ -31,11 +31,7 @@
     "url": "https://github.com/nconrad/patric-ui-test/issues"
   },
   "jest": {
-    "preset": "jest-puppeteer",
-    "reporters": [
-      "default",
-      "jest-html-reporters"
-    ]
+    "preset": "jest-puppeteer"
   },
   "homepage": "https://github.com/nconrad/patric-ui-test#readme"
 }

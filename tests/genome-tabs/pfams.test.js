@@ -1,16 +1,6 @@
 
-const puppeteer = require('puppeteer')
-
 const url = 'https://patricbrc.org'
 
-
-beforeAll(async () => {
-  await page.setViewport({
-    width: 1200,
-    height: 900,
-    deviceScaleFactor: 1,
-  })
-})
 
 describe('Brucella pinnipedialis B2/94 protein families tab', () => {
 
