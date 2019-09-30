@@ -7,7 +7,7 @@ const timeout = 130000 // server has a 2 min timeout
 describe('Subsystems tab', () => {
 
   beforeAll(async () => {
-    const view = `${url}/view/GenomeList/?in(genome_id,(106648.10,1144674.3,1785128.3))#view_tab=pathways`
+    const view = `${url}/view/GenomeList/?in(genome_id,(106648.10,1144674.3,1785128.3))#view_tab=subsystems`
     await page.goto(view, {waitUntil: 'networkidle0', timeout})
   })
 
@@ -22,7 +22,8 @@ describe('Subsystems tab', () => {
       document.querySelector('#subsystemspiechart svg')
     )
 
-    return pieChart != null
+    const performance = await page.evaluate(() => JSON.stringify(performance.toJSON(), null, '  '))
+    expect(pieChart).not.toBe(null)
   })
 
 })
