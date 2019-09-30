@@ -7,7 +7,7 @@ const timeout = 130000 // server has a 2 min timeout
 describe('Pathways tab', () => {
 
   beforeAll(async () => {
-    const view = `${url}/view/GenomeList/?in(genome_id,(1834079.3,1882406.3,2171752.3))#view_tab=subsystems`
+    const view = `${url}/view/GenomeList/?in(genome_id,(1834079.3,1882406.3,2171752.3))#view_tab=pathways`
     await page.goto(view, {waitUntil: 'networkidle0', timeout})
   })
 
@@ -19,9 +19,10 @@ describe('Pathways tab', () => {
 
   it('should list 200 pathways', async () => {
     const pageText = await page.evaluate(() =>
-      document.querySelector('.dgrid-pagination .dgrid-status').innerText.slice(7)
+      document.querySelector('.dgrid-pagination .dgrid-status').innerText.slice(0, 7)
     )
-    return pageText == '1 - 200'
+
+    expect(pageText).toBe('1 - 141')
   })
 
 })

@@ -8,9 +8,9 @@ describe('Brucella pinnipedialis B2/94 protein families tab', () => {
     const view = `${url}/view/Genome/520461.7#view_tab=proteinFamilies`
     await page.goto(view)
     const pageText = await page.evaluate(() =>
-      document.querySelector('.dgrid-pagination .dgrid-status').innerText.slice(7)
+      document.querySelector('.dgrid-pagination .dgrid-status').innerText.slice(0, 7)
     )
-    return pageText == '1 - 200'
+    expect(pageText).toBe('1 - 200')
   })
 })
 

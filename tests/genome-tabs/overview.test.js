@@ -47,9 +47,10 @@ describe('Genomes tab', () => {
 
   it('should list 200 genomes', async () => {
     const pageText = await page.evaluate(() =>
-      document.querySelector('.dgrid-pagination .dgrid-status').innerText.slice(7)
+      document.querySelector('.dgrid-pagination .dgrid-status').innerText.slice(0, 7)
     )
-    return pageText == '1 - 200'
+
+    expect(pageText).toBe('1 - 200')
   })
 })
 

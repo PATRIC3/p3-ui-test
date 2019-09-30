@@ -23,6 +23,8 @@ describe('Subsystems tab', () => {
     )
 
     const performance = await page.evaluate(() => JSON.stringify(performance.toJSON(), null, '  '))
+
+    // todo: improve the test
     expect(pieChart).not.toBe(null)
   })
 
