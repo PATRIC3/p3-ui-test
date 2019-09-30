@@ -1,7 +1,7 @@
 {
-  "name": "patric-ui-test",
+  "name": "p3-ui-test",
   "version": "1.0.0",
-  "description": "End-2-end test runner for the PATRIC UI",
+  "description": "End-to-end test harness for the PATRIC UI",
   "main": "test.js",
   "dependencies": {},
   "devDependencies": {
@@ -23,15 +23,15 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/nconrad/patric-ui-test.git"
+    "url": "git+https://github.com/PATRIC3/p3-ui-test.git"
   },
   "author": "",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/nconrad/patric-ui-test/issues"
+    "url": "https://github.com/PATRIC3/p3-ui-test/issues"
   },
   "jest": {
     "preset": "jest-puppeteer"
   },
-  "homepage": "https://github.com/nconrad/patric-ui-test#readme"
+  "homepage": "https://github.com/PATRIC3/p3-ui-test#readme"
 }

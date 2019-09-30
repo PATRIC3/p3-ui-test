@@ -1,4 +1,4 @@
-# patric-ui-test
+# p3-ui-test
 
 End-to-end test harness for the PATRIC UI, built on [Puppeteer](https://github.com/GoogleChrome/puppeteer) and [Jest](https://jestjs.io/]).
 
