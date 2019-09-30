@@ -17,7 +17,7 @@ describe('Pathways tab', () => {
   })
 
 
-  it('should list 200 pathways', async () => {
+  it('should list 141 pathways', async () => {
     const pageText = await page.evaluate(() =>
       document.querySelector('.dgrid-pagination .dgrid-status').innerText.slice(0, 7)
     )
