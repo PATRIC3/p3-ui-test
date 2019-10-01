@@ -71,8 +71,7 @@ workflows:
                 - master
     jobs:
       - build
-
-  every-15-mins:
+  every_15_mins:
     triggers:
       - schedule:
           cron: "*/15 * * * *"
