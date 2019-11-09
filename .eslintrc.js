@@ -8,8 +8,8 @@ module.exports = {
     "rules": {
         "semi": ["error", "never"],
         "space-before-function-paren": ["error", {
-            "anonymous": "always",
-            "named": "always",
+            "anonymous": "never",
+            "named": "never",
             "asyncArrow": "always"
         }],
         "indent": ["error", 2],
@@ -40,6 +40,7 @@ module.exports = {
         afterAll: true,
         describe: true,
         expect: true,
-        jest: true
+        jest: true,
+        Reporter: true
     }
 };
