@@ -37,6 +37,7 @@ module.exports = {
         context: true,
         beforeAll: true,
         beforeEach: true,
+        afterAll: true,
         describe: true,
         expect: true,
         jest: true

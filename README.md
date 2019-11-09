@@ -26,6 +26,12 @@ npm test
 An HTML report is made available at `./report.html`.
 
 
+## Config Notes
+
+The configuration file for basic tests is `./jest.config.js`.
+
+The configuration file for puppeteer tests is `./jest.ui.config.js`.
+
 
 ## Author(s)
 

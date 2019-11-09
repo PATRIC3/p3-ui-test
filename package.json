@@ -18,8 +18,8 @@
     "puppeteer": "^1.20.0"
   },
   "scripts": {
-    "test": "node ./node_modules/jest/bin/jest.js tests/ui/",
-    "test-health": "node ./node_modules/jest/bin/jest.js tests/service-health.test.js",
+    "test": "node ./node_modules/jest/bin/jest.js tests/ui/ --config jest.ui.config.js",
+    "test-health": "node ./node_modules/jest/bin/jest.js tests/service-health.test.js --config jest.config.js",
     "lint": "./node_modules/.bin/eslint tests/*"
   },
   "repository": {
