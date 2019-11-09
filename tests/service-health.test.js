@@ -9,9 +9,6 @@ const appService = 'https://p3.theseed.org/services/app_service/ping'
 const minHash = 'https://p3.theseed.org/services/minhash_service/ping'
 const homology = 'https://p3.theseed.org/services/homology_service/ping'
 
-const WRITE_RESULTS = true
-
-
 describe('Auth', () => {
 
   it('should return 200', async () => {
@@ -79,8 +76,4 @@ describe('Homology Service', () => {
     const res = await axios.get(homology)
     expect(res.status).toBe(200)
   })
-})
-
-afterAll(() => {
-  console.log('the tests are done', this)
 })

@@ -2,6 +2,6 @@
 module.exports = {
   reporters: [
     'default',
-    ['./health-reporter.js', {}]
+    ['./reporters/health-reporter.js', {}]
   ]
 }
