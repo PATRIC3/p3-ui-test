@@ -1,12 +1,20 @@
+/**
+ * This file is a reporter plugin for JEST
+ * - Takes results from JEST and writes a tsv health report file
+ * - The config for the output name is report.config.js > healthReport
+ */
+
 'use strict'
-
 const fs = require('fs')
+const config = require('./report.config.js')
 
-const path = './results/'
-const reportName = 'health.tsv'
-const failReportName = 'health-fails.tsv'
+// use yyyy-mm-dd format
+const REPORT_TIME = new Date().toLocaleString()
+const DATE = REPORT_TIME.split(' ')[0]
 
-const REPORT_TIME = `[${new Date().toLocaleString()}]`
+const path = config.resultsDir
+const reportName = config.healthReport.replace(/{DATE}/, DATE)
+const failReportName = config.healthErrors.replace(/{DATE}/, DATE)
 
 module.exports = function Reporter(globalConfig, options) {
   this.onRunComplete = (context, results) => {
@@ -21,7 +29,7 @@ module.exports = function Reporter(globalConfig, options) {
     const failRows = getFailLogRows(result)
 
     // if overview file doesn't exist create file with columns
-    const  reportPath = `${path}/${reportName}`
+    const reportPath = `${path}/${reportName}`
     if (!fs.existsSync(reportPath)) {
       writeRow(reportPath, getLogHeader(result.columns))
     }
@@ -58,7 +66,7 @@ const processStats = (results) => {
 }
 
 const getLogRow = (result) =>
-  REPORT_TIME + '\t' +
+  `[${REPORT_TIME}]` + '\t' +
     result.tests
       .map(obj => `${obj.status}|${obj.duration}`)
       .join('\t')
@@ -70,7 +78,7 @@ const getFailLogRows = (result) => {
   if (!failedTests.length) return null
 
   const rows = failedTests.map(obj =>
-    `${REPORT_TIME}\t${obj.ancestorTitles[0] > obj.title}\t${obj.failureMessages.join('\n')}`
+    `[${REPORT_TIME}]\t${obj.ancestorTitles[0] > obj.title}\t${obj.failureMessages.join('\n')}`
   ).join('\n')
 
   return rows
