@@ -20,7 +20,6 @@ const fileInPath =  path.resolve(`${resultsPath}/${fileInName}`)
 const fileOutName = config.healthCalendar.replace(/{DATE}/, YESTERDAY)
 const fileOutPath =  path.resolve(`${resultsPath}/${fileOutName}`)
 
-console.log('files', fileInPath, fileOutPath)
 
 // todo: modularize
 const getSummary = (text) => {
@@ -28,6 +27,7 @@ const getSummary = (text) => {
 
   const testSummary = {}
   testSummary.total = results.length
+  testSummary.date = YESTERDAY
 
   results.forEach(result => {
     result.tests.forEach(test => {
@@ -54,7 +54,8 @@ function dailySummary(rows) {
     if (err) throw err
 
     const summary = getSummary(text)
-    console.log('summary', summary)
+    console.log('\n', summary, '\n')
+
     console.log('Appending to calendar file...')
     fs.appendFileSync(fileOutPath, `${JSON.stringify(summary)}\n`)
     console.log('Added entry to calendar file: ', fileOutPath)
