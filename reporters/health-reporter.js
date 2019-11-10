@@ -6,6 +6,7 @@ const path = './results/'
 const reportName = 'health.tsv'
 const failReportName = 'health-fails.tsv'
 
+const REPORT_TIME = `[${new Date().toLocaleString()}]`
 
 module.exports = function Reporter(globalConfig, options) {
   this.onRunComplete = (context, results) => {
@@ -56,12 +57,8 @@ const processStats = (results) => {
   return {columns, tests}
 }
 
-
-const getTimeStr = () => `[${new Date().toLocaleString()}]`
-
-
 const getLogRow = (result) =>
-  getTimeStr() + '\t' +
+  REPORT_TIME + '\t' +
     result.tests
       .map(obj => `${obj.status}|${obj.duration}`)
       .join('\t')
@@ -73,7 +70,7 @@ const getFailLogRows = (result) => {
   if (!failedTests.length) return null
 
   const rows = failedTests.map(obj =>
-    `${getTimeStr()}\t${obj.ancestorTitles[0] > obj.title}\t${obj.failureMessages.join('\n')}`
+    `${REPORT_TIME}\t${obj.ancestorTitles[0] > obj.title}\t${obj.failureMessages.join('\n')}`
   ).join('\n')
 
   return rows
