@@ -20,16 +20,9 @@ describe('Auth', () => {
 
 describe('Data API', () => {
 
-  let res
-  beforeAll(async () => {
-    res = await axios.get(dataAPI)
-  })
-
-  it('should return 200', async () => {
+  it('should return 200 and return 25 items', async () => {
+    const res = await axios.get(dataAPI)
     expect(res.status).toBe(200)
-  })
-
-  it('should return 25 items', () => {
     expect(res.data.response.docs.length).toBe(25)
   })
 })
@@ -61,7 +54,7 @@ describe('Shock', () => {
 })
 
 
-describe('Min Hash Service', () => {
+describe('Min Hash', () => {
 
   it('should return 200', async () => {
     const res = await axios.get(minHash)
