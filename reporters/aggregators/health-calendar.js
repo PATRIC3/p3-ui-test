@@ -25,25 +25,30 @@ const fileOutPath =  path.resolve(`${resultsPath}/${fileOutName}`)
 const getSummary = (text) => {
   const results = parser(text)
 
-  const testSummary = {}
-  testSummary.total = results.length
-  testSummary.date = YESTERDAY
-
+  const services = {}
   results.forEach(result => {
     result.tests.forEach(test => {
       const {name, status, duration} = test
 
-      if (!(name in testSummary)) {
-        testSummary[name] = {passed: 0, failed: 0, duration: 0}
+      if (!(name in services)) {
+        services[name] = {passed: 0, failed: 0, duration: 0}
       }
 
-      testSummary[name] = {
-        passed: testSummary[name].passed + (status == 'P' ? 1 : 0),
-        failed: testSummary[name].failed + (status != 'P' ? 1 : 0),
-        duration: testSummary[name].duration + duration
+      services[name] = {
+        passed: services[name].passed + (status == 'P' ? 1 : 0),
+        failed: services[name].failed + (status != 'P' ? 1 : 0),
+        duration: services[name].duration + duration
       }
     })
   })
+
+  const testSummary = {}
+
+  // add services as list of objects
+  testSummary.services = Object.keys(services).map(name => ({name, ...services[name]}))
+  testSummary.total = results.length
+  testSummary.date = YESTERDAY
+
   return testSummary
 }
 
@@ -54,7 +59,7 @@ function dailySummary(rows) {
     if (err) throw err
 
     const summary = getSummary(text)
-    console.log('\n', summary, '\n')
+    console.log('\n', JSON.stringify(summary, null, 4), '\n')
 
     console.log('Appending to calendar file...')
     fs.appendFileSync(fileOutPath, `${JSON.stringify(summary)}\n`)
