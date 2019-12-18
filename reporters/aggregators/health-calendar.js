@@ -9,9 +9,11 @@ const path = require('path')
 
 const parser = require('./health-parser')
 
+// get yesterday
 const d = new Date()
 d.setDate(d.getDate() - 1)
-const YESTERDAY = d.toLocaleDateString()
+const [yyyy, mm, dd] = [d.getFullYear(), ('0' + (d.getMonth() + 1)).slice(-2), ('0' + d.getDate()).slice(-2)]
+const YESTERDAY = `${yyyy}-${mm}-${dd}`
 
 const resultsPath = path.resolve(config.resultsDir)
 
@@ -21,7 +23,6 @@ const fileOutName = config.healthCalendar.replace(/{DATE}/, YESTERDAY)
 const fileOutPath =  path.resolve(`${resultsPath}/${fileOutName}`)
 
 
-// todo: modularize
 const getSummary = (text) => {
   const results = parser(text)
 
@@ -44,7 +45,7 @@ const getSummary = (text) => {
 
   const testSummary = {}
 
-  // add services as list of objects
+  // add services to summary as list of objects
   testSummary.services = Object.keys(services).map(name => ({name, ...services[name]}))
   testSummary.total = results.length
   testSummary.date = YESTERDAY

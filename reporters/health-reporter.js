@@ -9,8 +9,9 @@ const fs = require('fs')
 const config = require('./report.config.js')
 
 // use yyyy-mm-dd format
-const REPORT_TIME = new Date().toLocaleString()
-const DATE = REPORT_TIME.split(' ')[0]
+const d = new Date()
+const REPORT_TIME = d.toISOString()
+const DATE = REPORT_TIME.split('T')[0]
 
 const path = config.resultsDir
 const reportName = config.healthReport.replace(/{DATE}/, DATE)
@@ -25,17 +26,18 @@ module.exports = function Reporter(globalConfig, options) {
 
     // aggregate and get log row
     const result = processStats(results)
-    const row = getLogRow(result)
+    const row = getLogRowJSON(result)
     const failRows = getFailLogRows(result)
 
-    // if overview file doesn't exist create file with columns
     const reportPath = `${path}/${reportName}`
-    if (!fs.existsSync(reportPath)) {
-      writeRow(reportPath, getLogHeader(result.columns))
-    }
+
+    // if overview file doesn't exist, create file with columns
+    // if (!fs.existsSync(reportPath)) {
+    //   writeRow(reportPath, getLogHeader(result.columns))
+    // }
 
     // write the overview log row
-    writeRow(reportPath, row)
+    writeRow(reportPath, JSON.stringify(row))
 
     // write any failed tests
     if (failRows) {
@@ -65,12 +67,18 @@ const processStats = (results) => {
   return {columns, tests}
 }
 
-const getLogRow = (result) =>
+const getLogRowText = (result) =>
   `[${REPORT_TIME}]` + '\t' +
     result.tests
       .map(obj => `${obj.status}|${obj.duration}`)
       .join('\t')
 
+const getLogRowJSON = ({tests, columns}) => {
+  return {
+    time: REPORT_TIME,
+    tests: tests.map(({status, duration}, i) => ({status, duration, name: columns[i]}))
+  }
+}
 
 const getFailLogRows = (result) => {
   // first filter out any failed tests
