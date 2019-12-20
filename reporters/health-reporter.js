@@ -13,7 +13,7 @@ const d = new Date()
 const REPORT_TIME = d.toISOString()
 const DATE = REPORT_TIME.split('T')[0]
 
-const path = config.resultsDir
+const path = config.healthDir
 const reportName = config.healthReport.replace(/{DATE}/, DATE)
 const failReportName = config.healthErrors.replace(/{DATE}/, DATE)
 

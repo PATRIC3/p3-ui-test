@@ -15,7 +15,7 @@ d.setDate(d.getDate() - 1)
 const [yyyy, mm, dd] = [d.getFullYear(), ('0' + (d.getMonth() + 1)).slice(-2), ('0' + d.getDate()).slice(-2)]
 const YESTERDAY = `${yyyy}-${mm}-${dd}`
 
-const resultsPath = path.resolve(config.resultsDir)
+const resultsPath = path.resolve(config.healthDir)
 
 const fileInName = config.healthReport.replace(/{DATE}/, YESTERDAY)
 const fileInPath =  path.resolve(`${resultsPath}/${fileInName}`)

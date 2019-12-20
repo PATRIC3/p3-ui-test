@@ -1,7 +1,7 @@
 
 module.exports = {
-  resultsDir: './results/',
-  healthReport: 'health_{DATE}.tsv',
-  healthErrors: 'health-errors_{DATE}.tsv',
-  healthCalendar: 'health-calendar.txt'
+  healthDir: './results/health/',
+  healthReport: 'health_{DATE}.txt',
+  healthErrors: 'health-errors_{DATE}.txt',
+  healthCalendar: 'health-calendar.txt',
 }
