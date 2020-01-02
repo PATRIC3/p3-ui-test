@@ -21,7 +21,7 @@ module.exports = function Reporter(globalConfig, options) {
   this.onRunComplete = (context, results) => {
 
     if (!fs.existsSync(path)) {
-      fs.mkdirSync(path)
+      fs.mkdirSync(path, {recursive: true})
     }
 
     // aggregate and get log row

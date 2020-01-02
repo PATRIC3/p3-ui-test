@@ -71,13 +71,13 @@ workflows:
                 - master
     jobs:
       - build
-  every_15_mins:
-    triggers:
-      - schedule:
-          cron: "0,15,30,45 * * * *"
-          filters:
-            branches:
-              only:
-                - master
+  #every_15_mins:
+  #  triggers:
+  #    - schedule:
+  #        cron: "0,15,30,45 * * * *"
+  #        filters:
+  #          branches:
+  #            only:
+  #              - master
     jobs:
       - health

@@ -20,7 +20,8 @@
   "scripts": {
     "test": "node ./node_modules/jest/bin/jest.js tests/ui/ --config jest.ui.config.js",
     "test-health": "node ./node_modules/jest/bin/jest.js tests/service-health.test.js --config jest.config.js",
-    "lint": "./node_modules/.bin/eslint tests/*"
+    "lint": "./node_modules/.bin/eslint tests/*",
+    "dev:serve": "http-server --cors -p 8000"
   },
   "repository": {
     "type": "git",
