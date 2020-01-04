@@ -15,7 +15,8 @@
     "jest-html-reporters": "^1.1.9",
     "jest-puppeteer": "^4.3.0",
     "jest-stare": "^1.18.1",
-    "puppeteer": "^1.20.0"
+    "puppeteer": "^1.20.0",
+    "split2": "^3.1.1"
   },
   "scripts": {
     "test": "node ./node_modules/jest/bin/jest.js tests/ui/ --config jest.ui.config.js",

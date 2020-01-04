@@ -4,7 +4,7 @@
  */
 
 const fs = require('fs')
-const config = require('../report.config')
+const config = require('../../report.config')
 const path = require('path')
 
 const parser = require('./health-parser')

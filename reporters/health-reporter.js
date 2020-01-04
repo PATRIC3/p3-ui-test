@@ -1,12 +1,12 @@
 /**
- * This file is a reporter plugin for JEST
+ * This is a reporter plugin for JEST
  * - Takes results from JEST and writes a tsv health report file
  * - The config for the output name is report.config.js > healthReport
  */
 
 'use strict'
 const fs = require('fs')
-const config = require('./report.config.js')
+const config = require('../report.config.js')
 
 // use yyyy-mm-dd format
 const d = new Date()
