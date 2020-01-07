@@ -22,7 +22,7 @@ const path = config.indexerDir
 const reportName = config.indexerReport
 const reportPath = `${path}/${reportName}`
 
-const MAX_LINES = 60
+const MAX_LINES = config.indexerHistoryLength
 
 const poll = async () => {
   try {

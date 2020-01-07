@@ -86,7 +86,7 @@ const getFailLogRows = (result) => {
   if (!failedTests.length) return null
 
   const rows = failedTests.map(obj =>
-    `[${REPORT_TIME}]\t${obj.ancestorTitles[0] > obj.title}\t${obj.failureMessages.join('\n')}`
+    `[${REPORT_TIME}]\t${obj.ancestorTitles[0]} > ${obj.title}\t${obj.failureMessages.join('\n')}`
   ).join('\n')
 
   return rows

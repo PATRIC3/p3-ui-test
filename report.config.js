@@ -5,5 +5,6 @@ module.exports = {
   healthErrors: 'health-errors_{DATE}.txt',
   healthCalendar: 'health-calendar.txt',
   indexerDir: './results/indexer/',
-  indexerReport: 'indexer-status.txt'
+  indexerReport: 'indexer-status.txt',
+  indexerHistoryLength: 180
 }
