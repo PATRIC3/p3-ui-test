@@ -6,6 +6,7 @@ module.exports = {
     'default',
     ['jest-html-reporters', {
       filename: 'report.html',
-    }]
+    }],
+    ['./reporters/health-reporter.js', {fullReport: true}]
   ]
 }

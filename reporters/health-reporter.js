@@ -1,7 +1,7 @@
 /**
  * This is a reporter plugin for JEST
- * - Takes results from JEST and writes a tsv health report file
- * - The config for the output name is report.config.js > healthReport
+ * - Takes results from JEST and logs results
+ * - See config file (report.config.js) for output paths
  */
 
 'use strict'
@@ -13,16 +13,24 @@ const d = new Date()
 const REPORT_TIME = d.toISOString()
 const DATE = REPORT_TIME.split('T')[0]
 
-const path = config.healthDir
-const reportName = config.healthReport.replace(/{DATE}/, DATE)
-const failReportName = config.healthErrors.replace(/{DATE}/, DATE)
-
 module.exports = function Reporter(globalConfig, options) {
   this.onRunComplete = (context, results) => {
 
-    if (!fs.existsSync(path)) {
-      fs.mkdirSync(path, {recursive: true})
+    // if full report, just write results
+    if (options.fullReport) {
+      const path = config.fullReportDir
+      const reportName = config.fullReportName.replace(/{DATE}/, DATE)
+      const reportPath = `${path}/${reportName}`
+      createDir(path)
+      writeRow(reportPath, JSON.stringify(results))
+
+      return results
     }
+
+    const path = config.healthDir
+    const reportName = config.healthReport.replace(/{DATE}/, DATE)
+    const failReportName = config.healthErrors.replace(/{DATE}/, DATE)
+    createDir(path)
 
     // aggregate and get log row
     const result = processStats(results)
@@ -30,11 +38,6 @@ module.exports = function Reporter(globalConfig, options) {
     const failRows = getFailLogRows(result)
 
     const reportPath = `${path}/${reportName}`
-
-    // if overview file doesn't exist, create file with columns
-    // if (!fs.existsSync(reportPath)) {
-    //   writeRow(reportPath, getLogHeader(result.columns))
-    // }
 
     // write the overview log row
     writeRow(reportPath, JSON.stringify(row))
@@ -48,6 +51,13 @@ module.exports = function Reporter(globalConfig, options) {
     return results
   }
 }
+
+const createDir = (path) => {
+  if (!fs.existsSync(path)) {
+    fs.mkdirSync(path, {recursive: true})
+  }
+}
+
 
 const processStats = (results) => {
   const testResults = results.testResults[0].testResults
@@ -67,11 +77,6 @@ const processStats = (results) => {
   return {columns, tests}
 }
 
-const getLogRowText = (result) =>
-  `[${REPORT_TIME}]` + '\t' +
-    result.tests
-      .map(obj => `${obj.status}|${obj.duration}`)
-      .join('\t')
 
 const getLogRowJSON = ({tests, columns}) => {
   return {
@@ -79,6 +84,7 @@ const getLogRowJSON = ({tests, columns}) => {
     tests: tests.map(({status, duration}, i) => ({status, duration, name: columns[i]}))
   }
 }
+
 
 const getFailLogRows = (result) => {
   // first filter out any failed tests
@@ -91,6 +97,7 @@ const getFailLogRows = (result) => {
 
   return rows
 }
+
 
 const getLogHeader = (columns) => ['time', ...columns].join('\t')
 
