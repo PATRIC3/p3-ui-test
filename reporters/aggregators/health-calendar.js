@@ -7,24 +7,37 @@ const fs = require('fs')
 const config = require('../../report.config')
 const path = require('path')
 
-const parser = require('./health-parser')
+let DATE
+let fileInPath
+let fileOutPath
+if (process.argv[2]  ) {
+  // if log path is provided, use date of file
+  fileInPath = path.resolve(process.argv[2])
+  const fileName = fileInPath.split('/').pop()
+  DATE = fileName.match(/\d{4}-\d{2}-\d{2}/g)[0]
 
-// get yesterday
-const d = new Date()
-d.setDate(d.getDate() - 1)
-const [yyyy, mm, dd] = [d.getFullYear(), ('0' + (d.getMonth() + 1)).slice(-2), ('0' + d.getDate()).slice(-2)]
-const YESTERDAY = `${yyyy}-${mm}-${dd}`
+  const dir = path.resolve(config.healthCalendarDir)
+  const fileOutName = config.healthCalendarName
+  fileOutPath =  path.resolve(`${resultsPath}/${fileOutName}`)
+} else {
+  // otherwise, use yesterday's date
+  const d = new Date()
+  d.setDate(d.getDate() - 1)
+  const [yyyy, mm, dd] = [d.getFullYear(), ('0' + (d.getMonth() + 1)).slice(-2), ('0' + d.getDate()).slice(-2)]
+  DATE = `${yyyy}-${mm}-${dd}`
 
-const resultsPath = path.resolve(config.healthDir)
+  const dir = path.resolve(config.healthCalendarDir)
 
-const fileInName = config.healthReport.replace(/{DATE}/, YESTERDAY)
-const fileInPath =  path.resolve(`${resultsPath}/${fileInName}`)
-const fileOutName = config.healthCalendar.replace(/{DATE}/, YESTERDAY)
-const fileOutPath =  path.resolve(`${resultsPath}/${fileOutName}`)
+  const fileInName = config.healthReport.replace(/{DATE}/, DATE)
+  fileInPath = path.resolve(`${dir}/${fileInName}`)
+
+  const fileOutName = config.healthCalendarName
+  fileOutPath =  path.resolve(`${dir}/${fileOutName}`)
+}
 
 
 const getSummary = (text) => {
-  const results = parser(text)
+  const results = text.trim().split('\n').map(obj => JSON.parse(obj))
 
   const services = {}
   results.forEach(result => {
@@ -48,13 +61,13 @@ const getSummary = (text) => {
   // add services to summary as list of objects
   testSummary.services = Object.keys(services).map(name => ({name, ...services[name]}))
   testSummary.total = results.length
-  testSummary.date = YESTERDAY
+  testSummary.date = DATE
 
   return testSummary
 }
 
 function dailySummary(rows) {
-  console.log('Aggregating data for', YESTERDAY, '...')
+  console.log('Aggregating data for', fileInPath, '...')
 
   fs.readFile(fileInPath, 'utf8', (err, text) => {
     if (err) throw err

@@ -4,7 +4,10 @@ module.exports = {
   healthDir: './results/health/',
   healthReport: 'health_{DATE}.txt',
   healthErrors: 'health-errors_{DATE}.txt',
-  healthCalendar: 'health-calendar.txt',
+
+  // calendar
+  healthCalendarDir: './results/',
+  healthCalendarName: 'health-calendar.txt',
 
   // end2end tests
   fullReportDir: './results/end2end',
