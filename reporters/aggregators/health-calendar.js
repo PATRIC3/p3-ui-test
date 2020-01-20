@@ -18,7 +18,7 @@ if (process.argv[2]  ) {
 
   const dir = path.resolve(config.healthCalendarDir)
   const fileOutName = config.healthCalendarName
-  fileOutPath =  path.resolve(`${resultsPath}/${fileOutName}`)
+  fileOutPath =  path.resolve(`${dir}/${fileOutName}`)
 } else {
   // otherwise, use yesterday's date
   const d = new Date()
