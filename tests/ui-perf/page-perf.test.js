@@ -1,4 +1,4 @@
-const {url} = require('../test.config.js')
+const {url} = require('../test.config')
 const {genomes, genes, ...tests} = require('./tests')
 
 const views = [

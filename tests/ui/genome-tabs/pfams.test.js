@@ -1,4 +1,4 @@
-const {url} = require('../test.config.js')
+const {url} = require('../../test.config')
 
 describe('Brucella pinnipedialis B2/94 protein families tab', () => {
 
