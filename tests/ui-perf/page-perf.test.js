@@ -1,6 +1,8 @@
 const {url} = require('../test.config')
 const {genomes, genes, ...tests} = require('./tests')
 
+const timeout = 180000 // wait for up to 3 minutes
+
 const views = [
   {tests: tests.taxonomyViews, title: 'Taxonomy overview'},
   {tests: tests.genomeOverviews, title: 'Genome overview'},
@@ -21,7 +23,7 @@ const getNext = items =>
   items[new Date().getHours() % items.length]
 
 const pageLoad = async (view) =>
-  page.goto(view, {waitUntil: 'networkidle0'})
+  page.goto(view, {waitUntil: 'networkidle0', timeout})
 
 const getSearchURL = (query) => {
   const q = 'and(' + query.split(' ').map(v => `keyword(${v})`).join(',') + ')'
