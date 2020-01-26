@@ -1,6 +1,4 @@
-const sleep = require('util').promisify(setTimeout)
-const url = 'https://patricbrc.org'
-
+const {url} = require('../test.config.js')
 
 describe('Brucella pinnipedialis B2/94 protein families tab', () => {
 

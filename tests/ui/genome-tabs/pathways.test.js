@@ -1,6 +1,5 @@
 
-const url = 'https://patricbrc.org'
-
+const {url} = require('../test.config.js')
 
 const timeout = 130000 // server has a 2 min timeout
 

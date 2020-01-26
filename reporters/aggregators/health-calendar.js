@@ -1,6 +1,7 @@
 /**
- * takes a single health log file from yesterday (config.healthReport),
- * writes a row to the health calendar file (config.healthCalendar)
+ * - takes a single health log file path.
+ *   defaults to `config.healthReport` with DATE being yesterday (UTC)
+ * - writes a row to the health calendar file (config.healthCalendar)
  */
 
 const fs = require('fs')
@@ -10,7 +11,7 @@ const path = require('path')
 let DATE
 let fileInPath
 let fileOutPath
-if (process.argv[2]  ) {
+if (process.argv[2]) {
   // if log path is provided, use date of file
   fileInPath = path.resolve(process.argv[2])
   const fileName = fileInPath.split('/').pop()

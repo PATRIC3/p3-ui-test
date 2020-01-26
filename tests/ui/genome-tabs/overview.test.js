@@ -1,5 +1,5 @@
 
-const url = 'https://patricbrc.org'
+const {url} = require('../test.config.js')
 
 
 describe('Bacteria overview tab', () => {

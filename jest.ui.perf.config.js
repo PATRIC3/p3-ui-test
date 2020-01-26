@@ -6,7 +6,7 @@ module.exports = {
     'default',
     ['./reporters/reporter.js', {
       fullReport: true,
-      type: 'end2end'
+      type: 'performance'
     }]
   ]
 }

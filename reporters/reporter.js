@@ -19,8 +19,12 @@ module.exports = function Reporter(globalConfig, options) {
     // if full report, just write results
     if (options.fullReport) {
       const path = config.fullReportDir
-      const reportName = config.fullReportName.replace(/{DATE}/, DATE)
+        .replace(/{TYPE}/, options.type)
+      const reportName = config.fullReportName
+        .replace(/{TYPE}/, options.type)
+        .replace(/{DATE}/, DATE)
       const reportPath = `${path}/${reportName}`
+
       createDir(path)
       writeRow(reportPath, JSON.stringify(results))
 
@@ -53,9 +57,8 @@ module.exports = function Reporter(globalConfig, options) {
 }
 
 const createDir = (path) => {
-  if (!fs.existsSync(path)) {
-    fs.mkdirSync(path, {recursive: true})
-  }
+  if (fs.existsSync(path)) return
+  fs.mkdirSync(path, {recursive: true})
 }
 
 
