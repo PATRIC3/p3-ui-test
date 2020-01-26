@@ -41,12 +41,14 @@ describe('Go to home page (cache some of the assets)', () => {
   })
 })
 
+
 describe('Second homepage load', () => {
   it(`${url} should contain BRC title`, async () => {
     await pageLoad(url)
     await expect(page).toMatch(title)
   })
 })
+
 
 describe('Global search (genome)', () => {
   const genome = getNext(genomes)
@@ -58,6 +60,7 @@ describe('Global search (genome)', () => {
   })
 })
 
+
 describe('Global search (gene)', () => {
   const {q: gene, match} = getNext(genes)
   const view = getSearchURL(gene)
@@ -68,6 +71,7 @@ describe('Global search (gene)', () => {
     await expect(page).toMatch(match || decodeURIComponent(gene))
   })
 })
+
 
 for (const view of views) {
   const {tests, title} = view

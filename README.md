@@ -22,8 +22,8 @@ npm install
 
 ```
 npm test              // run UI end-2-end tests
-npm run test-perf     // run performance/pageload tests
-npm run test-health   // run service-level heealth pings
+npm run test-perf     // run UI page performance tests
+npm run test-health   // run service-level health pings
 ```
 
 See `./results/` for output
@@ -33,7 +33,7 @@ See `./results/` for output
 
 The test harness consists of 3 parts: tests, reporters, and aggregators.
 
-<b>Tests</b> are are implemented using Jest.  The config files of interest are:
+<b>Tests</b> are implemented using Jest.  The config files of interest are:
 - `./jest.setup.js` config for service health
 - `./jest.ui.setup.js` config for UI end-2-end tests
 - `./jest.ui.perf.setup.js` config for UI page load performance
