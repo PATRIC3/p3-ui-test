@@ -45,7 +45,7 @@ The test harness consists of 3 parts: tests, reporters, and aggregators.
 
 <b>Aggregators</b> are stop-gap scripts that can aggregate files into condensed, readily available data, such as a calendar of stats.
 
-- `./reporters/aggregators/`
+- `./aggregators/`
 
 
 There are also <b>pollers</b>, which are simple scripts that that poll for data and currently write logs to a single file.

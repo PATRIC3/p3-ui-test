@@ -5,7 +5,7 @@
  */
 
 const fs = require('fs')
-const config = require('../../report.config')
+const config = require('../report.config')
 const path = require('path')
 
 let DATE
@@ -27,13 +27,13 @@ if (process.argv[2]) {
   const [yyyy, mm, dd] = [d.getFullYear(), ('0' + (d.getMonth() + 1)).slice(-2), ('0' + d.getDate()).slice(-2)]
   DATE = `${yyyy}-${mm}-${dd}`
 
-  const dir = path.resolve(config.healthCalendarDir)
-
+  const inDir = path.resolve(config.healthDir)
   const fileInName = config.healthReport.replace(/{DATE}/, DATE)
-  fileInPath = path.resolve(`${dir}/${fileInName}`)
+  fileInPath = path.resolve(`${inDir}/${fileInName}`)
 
+  const outDir = path.resolve(config.healthCalendarDir)
   const fileOutName = config.healthCalendarName
-  fileOutPath =  path.resolve(`${dir}/${fileOutName}`)
+  fileOutPath =  path.resolve(`${outDir}/${fileOutName}`)
 }
 
 
