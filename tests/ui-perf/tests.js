@@ -4,6 +4,8 @@
  *  - Subsytems
  *  - Transcriptomics experiment list
  *  - Transcriptomics sample list
+ *  - Transcriptomics gene list
+ *  - PPI
  */
 
 
