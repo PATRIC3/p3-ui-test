@@ -17,9 +17,7 @@ if (process.argv[2]) {
   const fileName = fileInPath.split('/').pop()
   DATE = fileName.match(/\d{4}-\d{2}-\d{2}/g)[0]
 
-  const dir = path.resolve(config.healthCalendarDir)
-  const fileOutName = config.healthCalendarName
-  fileOutPath =  path.resolve(`${dir}/${fileOutName}`)
+  fileOutPath =  path.resolve(config.healthCalendarPath)
 } else {
   // otherwise, use yesterday's date
   const d = new Date()
@@ -27,13 +25,8 @@ if (process.argv[2]) {
   const [yyyy, mm, dd] = [d.getFullYear(), ('0' + (d.getMonth() + 1)).slice(-2), ('0' + d.getDate()).slice(-2)]
   DATE = `${yyyy}-${mm}-${dd}`
 
-  const inDir = path.resolve(config.healthDir)
-  const fileInName = config.healthReport.replace(/{DATE}/, DATE)
-  fileInPath = path.resolve(`${inDir}/${fileInName}`)
-
-  const outDir = path.resolve(config.healthCalendarDir)
-  const fileOutName = config.healthCalendarName
-  fileOutPath =  path.resolve(`${outDir}/${fileOutName}`)
+  fileInPath = config.healthReportPath.replace(/{DATE}/, DATE)
+  fileOutPath = config.healthCalendarPath
 }
 
 

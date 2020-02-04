@@ -7,28 +7,27 @@
 
 const fs = require('fs')
 const util = require('util')
+const path = require('path')
 const mkdir = util.promisify(fs.mkdir)
 const appendFile = util.promisify(fs.appendFile)
 const rename = util.promisify(fs.rename)
 
+const axios = require('axios')
 const split = require('split2')
 const RemoveFirstLine = require('./truncate')
 
-const axios = require('axios')
-
-// get output report path/name
+// get output report path
 const config = require('../report.config.js')
-const path = config.indexerDir
-const reportName = config.indexerReport
-const reportPath = `${path}/${reportName}`
+const reportPath = config.indexerReportPath
 
 const MAX_LINES = config.indexerHistoryLength
 
+
 const poll = async () => {
   try {
-    await mkdir(path, {recursive: true})
+    await mkdir(path.dirname(reportPath), {recursive: true})
   } catch (e) {
-    console.error(`could not make dir ${path}`, e)
+    console.error(`could not make dir ${reportPath}`, e)
   }
 
   // get result
@@ -72,5 +71,4 @@ async function truncate(filePath, cb) {
 
 
 poll()
-
 

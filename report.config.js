@@ -1,20 +1,16 @@
 
 module.exports = {
-  // end2end/perf tests
-  fullReportDir: './results/{TYPE}',
-  fullReportName: '{TYPE}_{DATE}.txt',
-
   // system health (special, condensed version of reports)
-  healthDir: './results/health/',
-  healthReport: 'health_{DATE}.txt',
-  healthErrors: 'health-errors_{DATE}.txt',
+  healthReportPath: './results/health/health_{DATE}.txt',
+  healthErrorPath: './results/health/health-errors_{DATE}.txt',
+
+  // end2end/perf tests ("type" is passed to reporter)
+  fullReportPath: './results/{TYPE}/{TYPE}_{DATE}.txt',
 
   // calendar
-  healthCalendarDir: './results/',
-  healthCalendarName: 'health-calendar.txt',
+  healthCalendarPath: './results/health-calendar.txt',
 
   // genome indexer
-  indexerDir: './results/indexer/',
-  indexerReport: 'indexer-status.txt',
+  indexerReportPath: './results/indexer/indexer-status.txt',
   indexerHistoryLength: 180
 }

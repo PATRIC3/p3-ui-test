@@ -7,6 +7,7 @@
 'use strict'
 const fs = require('fs')
 const config = require('../report.config.js')
+const path = require('path')
 
 // use yyyy-mm-dd format
 const d = new Date()
@@ -18,38 +19,32 @@ module.exports = function Reporter(globalConfig, options) {
 
     // if full report, just write results
     if (options.fullReport) {
-      const path = config.fullReportDir
-        .replace(/{TYPE}/, options.type)
-      const reportName = config.fullReportName
-        .replace(/{TYPE}/, options.type)
-        .replace(/{DATE}/, DATE)
-      const reportPath = `${path}/${reportName}`
+      const fullReportPath = config.fullReportPath
+        .replace(/{TYPE}/g, options.type)
+        .replace(/{DATE}/g, DATE)
 
-      createDir(path)
-      writeRow(reportPath, JSON.stringify(results))
+      createDir(path.dirname(fullReportPath))
+      writeRow(fullReportPath, JSON.stringify(results))
 
       return results
     }
 
-    const path = config.healthDir
-    const reportName = config.healthReport.replace(/{DATE}/, DATE)
-    const failReportName = config.healthErrors.replace(/{DATE}/, DATE)
-    createDir(path)
+    const reportPath = config.healthReportPath.replace(/{DATE}/, DATE)
+    const errorReportPath = config.healthErrorPath.replace(/{DATE}/, DATE)
+    createDir(path.dirname(reportPath))
+    createDir(path.dirname(errorReportPath))
 
     // aggregate and get log row
     const result = processStats(results)
     const row = getLogRowJSON(result)
     const failRows = getFailLogRows(result)
 
-    const reportPath = `${path}/${reportName}`
-
     // write the overview log row
     writeRow(reportPath, JSON.stringify(row))
 
     // write any failed tests
     if (failRows) {
-      const failedReportPath = `${path}/${failReportName}`
-      writeRow(failedReportPath, failRows)
+      writeRow(errorReportPath, failRows)
     }
 
     return results

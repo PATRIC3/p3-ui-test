@@ -15,7 +15,7 @@ const genomes = [
   'Pseudomonas aeruginosa strain KCJK8015',
   'Listeria monocytogenes strain LM15',
   'Burkholderia thailandensis E254',
-  'brucella'
+  'Brucella'
 ]
 
 const genes = [
@@ -52,7 +52,7 @@ const genomeLists = [
   {view: '/view/Taxonomy/1239#view_tab=genomes', match: '1 - 200'},
   {view: '/view/Taxonomy/356#view_tab=genomes', match: '1 - 200'},
   {view: '/view/Taxonomy/1236#view_tab=genomes', match: '1 - 200'},
-  {view: '/view/Taxonomy/773#view_tab=genome', match: '1 - 200'},
+  {view: '/view/Taxonomy/773#view_tab=genomes', match: '1 - 200'},
 ]
 
 
