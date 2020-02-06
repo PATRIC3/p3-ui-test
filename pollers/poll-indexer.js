@@ -42,7 +42,7 @@ const poll = async () => {
   try {
     await appendFile(reportPath, JSON.stringify(data) + '\n')
   } catch (e) {
-    console.log(`could not right to file ${reportPath}`, e)
+    console.error(`could not write to file ${reportPath}`, e)
   }
 
   // remove first line if needed

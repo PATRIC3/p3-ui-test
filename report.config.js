@@ -16,5 +16,9 @@ module.exports = {
 
   // file with list of email addresses
   mailListPath: './mailers/mail-list.txt',
-  fromListPath: './mailers/from-list.txt'
+  fromListPath: './mailers/from-list.txt',
+
+  // mail config
+  dashboardURL: 'https://status.patricbrc.org/',
+  mailStatePath: './.state/mail-state.json'
 }

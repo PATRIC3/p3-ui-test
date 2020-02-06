@@ -8,7 +8,9 @@
 const fs = require('fs')
 const config = require('../report.config.js')
 const path = require('path')
-const mailer = require('../mailers/health.js')
+const healthMailer = require('../mailers/health-mailer.js')
+
+const Store = require('../store/store.js')({path: config.mailStatePath})
 
 // use yyyy-mm-dd format
 const d = new Date()
@@ -37,24 +39,32 @@ module.exports = function Reporter(globalConfig, options) {
 
     // aggregate and get log row
     const result = processStats(results)
-    const row = getLogRowJSON(result)
-    const failRows = getFailLogRows(result)
+    const data = getLogData(result)
+    const failLog = getFailLog(result)
 
     // write the overview log row
-    writeRow(reportPath, JSON.stringify(row))
+    writeRow(reportPath, JSON.stringify(data))
 
-    // write any failed tests and send mail
-    if (failRows) {
-      writeRow(errorReportPath, failRows)
-      mailer(
-        JSON.stringify(row, null, 4) + '\n\n' +
-        'Errors:\n\n' + failRows
-      )
+    // write any failed tests
+    if (failLog) {
+      writeRow(errorReportPath, failLog)
+    }
+
+    // if failed and no recent fails, send alert
+    if (failLog && !Store.get('recentFail')) {
+      healthMailer({data, passed: false, log: failLog})
+      Store.set('recentFail', true)
+
+    // if passed, but has recent fail, send all-clear
+    } else if (!failLog && Store.get('recentFail')) {
+      healthMailer({data, passed: true})
+      Store.set('recentFail', false)
     }
 
     return results
   }
 }
+
 
 const createDir = (path) => {
   if (fs.existsSync(path)) return
@@ -62,12 +72,14 @@ const createDir = (path) => {
 }
 
 
+// returns condensed version of test resport
 const processStats = (results) => {
   const testResults = results.testResults[0].testResults
   const columns = testResults.map(test => test.ancestorTitles[0])
 
   const tests = testResults.map(test => {
     const {status, duration, failureMessages, title, ancestorTitles} = test
+
     return {
       status: status == 'passed' ? 'P' : 'F',
       duration,
@@ -81,16 +93,14 @@ const processStats = (results) => {
 }
 
 
-const getLogRowJSON = ({tests, columns}) => {
-  return {
-    time: REPORT_TIME,
-    tests: tests.map(({status, duration}, i) => ({status, duration, name: columns[i]}))
-  }
-}
+const getLogData = ({tests, columns}) => ({
+  time: REPORT_TIME,
+  tests: tests.map(({status, duration}, i) => ({status, duration, name: columns[i]}))
+})
 
 
-const getFailLogRows = (result) => {
-  // first filter out any failed tests
+const getFailLog = (result) => {
+  // first filter out any non-passed tests
   const failedTests = result.tests.filter(obj => obj.status != 'P')
   if (!failedTests.length) return null
 

@@ -5,21 +5,25 @@ const readFile = util.promisify(fs.readFile)
 const {mailListPath, fromListPath} = require('../report.config')
 
 
-const showErrMsg = e => console.error(`Failed parsing mail-list file with path; ${e}`)
+const showErrMsg = e =>
+  console.error(`Failed parsing mail-list file with path; ${e}`)
 
 
 // helper to get mail-lists
 async function getList(path) {
-  const data = await readFile(path, 'utf-8')
+  const data = await readFile(path, 'utf8')
   const lines = data.split('\n').map(l => l.trim())
   return lines
 }
 
 
-async function mailer(body) {
+async function mailer({body, subject}) {
+  if (!body || !subject) {
+    throw 'body and subject are required for the mailer'
+  }
+
   const transporter = nodemailer.createTransport({
-    sendmail: true,
-    newline: 'unix'
+    sendmail: true
   })
 
   let fromList
@@ -40,13 +44,13 @@ async function mailer(body) {
 
   // send mail
   const info = await transporter.sendMail({
-    from: fromList.join(', '),
-    to: mailList.join(', '),
-    subject: '[patric-status] alert',
+    from: fromList,
+    to: mailList,
+    subject,
     html: body
   })
 
-  console.log(`Mail sent: ${info}`)
+  console.log(`Mail sent: ${JSON.stringify(info, null, 4)}`)
 }
 
 
