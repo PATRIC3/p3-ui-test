@@ -8,7 +8,7 @@
 const fs = require('fs')
 const config = require('../report.config.js')
 const path = require('path')
-const {mailer} = require('../mailers/health.js')
+const mailer = require('../mailers/health.js')
 
 // use yyyy-mm-dd format
 const d = new Date()
@@ -43,10 +43,13 @@ module.exports = function Reporter(globalConfig, options) {
     // write the overview log row
     writeRow(reportPath, JSON.stringify(row))
 
-    // write any failed tests, send mail
+    // write any failed tests and send mail
     if (failRows) {
       writeRow(errorReportPath, failRows)
-      mailer(JSON.stringify(row, null, 4) + '\n\nErrors:\n' + failRows)
+      mailer(
+        JSON.stringify(row, null, 4) + '\n\n' +
+        'Errors:\n\n' + failRows
+      )
     }
 
     return results
