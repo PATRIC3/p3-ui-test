@@ -15,6 +15,7 @@
     "jest-html-reporters": "^1.1.9",
     "jest-puppeteer": "^4.3.0",
     "jest-stare": "^1.18.1",
+    "nodemailer": "^6.4.2",
     "puppeteer": "^1.20.0",
     "split2": "^3.1.1"
   },
