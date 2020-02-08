@@ -19,6 +19,9 @@ module.exports = {
   fromListPath: './mailers/from-list.txt',
 
   // mail config
-  dashboardURL: 'https://status.patricbrc.org/',
-  mailStatePath: './.state/mail-state.json'
+  sendmailPath: '/usr/sbin/sendmail',
+  mailStatePath: './.state/mail-state.json',
+
+  // mail template config
+  dashboardURL: 'https://status.patricbrc.org/'
 }

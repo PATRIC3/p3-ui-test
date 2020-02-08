@@ -2,7 +2,7 @@ const nodemailer = require('nodemailer')
 const fs = require('fs')
 const util = require('util')
 const readFile = util.promisify(fs.readFile)
-const {mailListPath, fromListPath} = require('../report.config')
+const {mailListPath, fromListPath, sendmailPath} = require('../report.config')
 
 
 const showErrMsg = e =>
@@ -23,7 +23,8 @@ async function mailer({body, subject}) {
   }
 
   const transporter = nodemailer.createTransport({
-    sendmail: true
+    sendmail: true,
+    path: sendmailPath
   })
 
   let fromList
