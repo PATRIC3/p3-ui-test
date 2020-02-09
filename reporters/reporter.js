@@ -52,7 +52,7 @@ module.exports = function Reporter(globalConfig, options) {
 
     // if failed and no recent fails, send alert
     if (failLog && !Store.get('recentFail')) {
-      healthMailer({data, passed: false, log: failLog})
+      healthMailer({data, passed: false, logs: failLog})
       Store.set('recentFail', true)
 
     // if passed, but has recent fail, send all-clear
