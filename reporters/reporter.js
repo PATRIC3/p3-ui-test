@@ -50,15 +50,8 @@ module.exports = function Reporter(globalConfig, options) {
       writeRow(errorReportPath, failLog)
     }
 
-    // if failed and no recent fails, send alert
-    if (failLog && !Store.get('recentFail')) {
-      healthMailer({data, passed: false, logs: failLog})
-      Store.set('recentFail', true)
-
-    // if passed, but has recent fail, send all-clear
-    } else if (!failLog && Store.get('recentFail')) {
-      healthMailer({data, passed: true})
-      Store.set('recentFail', false)
+    if (config.sendMail) {
+      sendMail({data, failLog})
     }
 
     return results
@@ -114,5 +107,19 @@ const getFailLog = (result) => {
 
 const writeRow = (filePath, text) => {
   fs.appendFileSync(filePath, `${text}\n`)
+}
+
+
+const sendMail = ({data, failLog}) => {
+  // if failed and no recent fails, send alert
+  if (failLog && !Store.get('recentFail')) {
+    healthMailer({data, passed: false, logs: failLog})
+    Store.set('recentFail', true)
+
+  // if passed, but has recent fail, send all-clear
+  } else if (!failLog && Store.get('recentFail')) {
+    healthMailer({data, passed: true})
+    Store.set('recentFail', false)
+  }
 }
 

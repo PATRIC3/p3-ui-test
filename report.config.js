@@ -19,6 +19,7 @@ module.exports = {
   fromListPath: './mailers/from-list.txt',
 
   // mail config
+  sendmail: true,
   sendmailPath: '/usr/sbin/sendmail',
   mailStatePath: './.state/mail-state.json',
 
