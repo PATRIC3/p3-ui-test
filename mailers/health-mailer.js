@@ -45,7 +45,7 @@ const healthMailer = ({data, passed, logs = ''}) => {
     subject: `[PATRIC-Status] ${passed ? 'All-Clear' : 'Service Fail'} Alert`,
     body: getMailTable(data) + '<br>' +
       '<br>' +
-      logs
+      `<pre>${logs}<pre>`
   })
 }
 

@@ -6,7 +6,7 @@ const {mailListPath, fromListPath, sendmailPath} = require('../report.config')
 
 
 const showErrMsg = e =>
-  console.error(`Failed parsing mail-list file with path; ${e}`)
+  console.error(`Failed parsing mailing list file.  ${e}`)
 
 
 // helper to get mail-lists
@@ -50,8 +50,6 @@ async function mailer({body, subject}) {
     subject,
     html: body
   })
-
-  console.log(`Mail sent: ${JSON.stringify(info, null, 4)}`)
 }
 
 

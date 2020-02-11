@@ -50,7 +50,7 @@ module.exports = function Reporter(globalConfig, options) {
       writeRow(errorReportPath, failLog)
     }
 
-    if (config.sendMail) {
+    if (config.sendmail || config.sendMail) {
       sendMail({data, failLog})
     }
 
