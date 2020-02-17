@@ -12,7 +12,7 @@ module.exports = {
 
   // genome indexer
   indexerReportPath: './results/indexer/indexer-status.txt',
-  indexerHistoryLength: 180,
+  indexerHistoryLength: 1440, // 1 day
 
   // file with list of email addresses
   mailListPath: './mailers/mail-list.txt',
