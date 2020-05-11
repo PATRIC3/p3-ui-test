@@ -1,10 +1,10 @@
 {
   "name": "p3-ui-test",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "End-to-end test harness for the PATRIC UI",
   "main": "test.js",
   "devDependencies": {
-    "axios": "^0.19.0",
+    "axios": "^0.19.2",
     "eslint": "^6.4.0",
     "eslint-config-standard": "^14.1.0",
     "eslint-plugin-import": "^2.18.2",
@@ -12,9 +12,7 @@
     "eslint-plugin-promise": "^4.2.1",
     "eslint-plugin-standard": "^4.0.1",
     "jest": "^24.9.0",
-    "jest-html-reporters": "^1.1.9",
-    "jest-puppeteer": "^4.3.0",
-    "jest-stare": "^1.18.1",
+    "jest-puppeteer": "^4.4.0",
     "nodemailer": "^6.4.2",
     "puppeteer": "^1.20.0",
     "split2": "^3.1.1"
